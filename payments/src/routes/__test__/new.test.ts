@@ -1,6 +1,6 @@
-import { OrderStatus } from "@microk8stickets/common";
 import mongoose from "mongoose";
 import request from "supertest";
+import { OrderStatus } from "@microk8stickets/common";
 import { app } from '../../app';
 import { Order } from '../../models/order';
 import { stripe } from '../../stripe';
@@ -70,12 +70,12 @@ it('returns a 201 with valid inputs', async () => {
     });
     await order.save();
 
-    await request(app)
+    const response = await request(app)
         .post('/api/payments')
         .set('Cookie', global.signin(userId))
         .send({
-        token: 'tok_visa',
-        orderId: order.id,
+            token: 'tok_visa',
+            orderId: order.id,
         })
         .expect(201);
 

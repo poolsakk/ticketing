@@ -9,6 +9,7 @@ declare global {
 }
 
 jest.mock('../nats-wrapper');
+jest.setTimeout(60 * 1000); // 1 minute
 
 process.env.STRIPE_KEY = 'sk_test_51LY1j8Gs2VfwyoJ2CKZYg7f1CvEsa5DfMPQiAm6FR3fdgW8kN0NailBmc1ibWg7M0PgyLGgBsQqlrliqeBJoPCi000PwPMkCYv'
 
