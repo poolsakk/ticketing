@@ -1,0 +1,60 @@
+apiVersion: 'skaffold/v2alpha3'
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/* # list out all the directories or all the file we want to sink
+build:
+  local:
+    push: false # do not try to push it off to Docker Hub
+  # googleCloudBuild:
+  #   projectId: ticking-dev-344812
+  artifacts:
+    - image: poolsakk/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**.js' 
+            dest: .
+    - image: poolsakk/auth # - image: gcr.io/ticking-dev-344812/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync: # sink file between local <-> container
+        manual:
+          - src: 'src/**/*.ts' 
+            dest: . # where to sink this file to inside of our running container, the dot mean take wherever in container
+    - image: poolsakk/tickets 
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts' 
+            dest: .
+    - image: poolsakk/orders 
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts' 
+            dest: .
+    - image: poolsakk/expiration 
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts' 
+            dest: .
+    - image: poolsakk/payments 
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts' 
+            dest: .
