@@ -4,6 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/* # list out all the directories or all the file we want to sink
+      - ./infra/k8s-dev/*
 build:
   local:
     push: false # do not try to push it off to Docker Hub
