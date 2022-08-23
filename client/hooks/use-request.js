@@ -7,9 +7,7 @@ export default ({ url, method, body, onSuccess }) => {
     const doRequest = async (props = {}) => {
         try {
             setErrors(null)
-            const response = await axios[method](url,
-                { ...body, ...props }
-            );
+            const response = await axios[method](url,{ ...body, ...props });
 
             if(onSuccess) {
                 onSuccess(response.data)
@@ -24,9 +22,9 @@ export default ({ url, method, body, onSuccess }) => {
                         {err.response.data.errors.map((err) => (<li key={err.message}>{err.message}</li>))}
                     </ul>
                 </div>
-            )
+            );
         }
-    }
+    };
 
     return { doRequest, errors }
-}
+};
