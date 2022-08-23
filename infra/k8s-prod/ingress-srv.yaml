@@ -66,12 +66,12 @@ spec:
   externalTrafficPolicy: Local
   ports:
     - name: http
-      protocol: TCP
       port: 80
+      protocol: TCP
       targetPort: http
     - name: https
-      protocol: TCP
       port: 443
+      protocol: TCP
       targetPort: https
   selector:
     app.kubernetes.io/name: ingress-nginx
